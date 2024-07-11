@@ -1,0 +1,90 @@
+.side-notifications {
+  position: fixed;
+  top: 50px;
+  right: 10px;
+  z-index: 99999999;
+
+  .side-notifications-main {
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    min-width: 220px;
+    padding: 14px 10px;
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &.success {
+      .side-notifications-inner {
+        .side-notifications__icon-status {
+          > svg {
+            color: #0a7b60;
+          }
+        }
+        .side-notifications__body {
+          .side-notifications-body__msg {
+            color: #0a7b60;
+          }
+        }
+      }
+    }
+
+    &.error {
+      background-color: #ff7b7b;
+      .side-notifications__icon-status {
+        color: #fff;
+      }
+      .side-notifications-body__msg {
+        color: #fff;
+      }
+      .side-notifications__btn-close > button {
+        color: #fff;
+      }
+    }
+  }
+
+  .side-notifications-inner {
+    position: relative;
+    padding: 0 28px 0 40px;
+  }
+
+  .side-notifications__icon-status {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+  }
+
+  .side-notifications__body {
+    .side-notifications-body__title {
+      margin-bottom: 8px;
+      font-weight: 600;
+      position: relative;
+      top: 2px;
+    }
+    .side-notifications-body__msg {
+    }
+  }
+
+  .side-notifications__btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    > button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #999;
+    }
+  }
+}
