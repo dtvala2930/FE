@@ -1,9 +1,7 @@
 %greenLinkBox {
   border: 2px solid #68937d;
   background: #68937d;
-  transition:
-    background 0.35s,
-    border-color 0.35s;
+  transition: background 0.35s, border-color 0.35s;
   color: #fff;
 
   &:hover {
@@ -38,16 +36,19 @@
     > svg {
       margin-right: 6px;
     }
-    height: 33px;
-    padding: 4px 10px;
-    border: 2px solid #c6cdce;
-    background: #fff;
-    transition:
-      background 0.35s,
-      border-color 0.35s;
-    color: #626262;
-    font-weight: 600;
-    line-height: normal !important;
+    & {
+      height: 33px;
+      padding: 4px 10px;
+      border: 2px solid #c6cdce;
+      background: #fff;
+    }
+    & {
+      transition: background 0.35s, border-color 0.35s;
+      color: #626262;
+      font-weight: 600;
+      line-height: normal !important;
+    }
+
     > span {
       color: #626262;
     }
@@ -69,10 +70,12 @@
     > svg {
       margin-right: 6px;
     }
-    height: 33px;
-    padding: 4px 10px;
-    font-weight: 600;
-    line-height: normal !important;
+    & {
+      height: 33px;
+      padding: 4px 10px;
+      font-weight: 600;
+      line-height: normal !important;
+    }
     &--font-size13 {
       font-size: 0.8rem;
     }
@@ -151,9 +154,7 @@
     padding: 4px 10px;
     border: 2px solid #b5b5b5;
     background: #fff;
-    transition:
-      background 0.35s,
-      border-color 0.35s;
+    transition: background 0.35s, border-color 0.35s;
     color: #626262;
     font-weight: 700;
     font-size: 0.8rem;
@@ -170,9 +171,7 @@
     padding: 4px 10px;
     border: 2px solid #68937d;
     background: #68937d;
-    transition:
-      background 0.35s,
-      border-color 0.35s;
+    transition: background 0.35s, border-color 0.35s;
     color: #fff;
     font-weight: 600;
     &--font-size13 {
@@ -191,9 +190,7 @@
     display: flex;
     border: 2px solid #b5b5b5;
     background-color: #e2e2e2;
-    transition:
-      background 0.35s,
-      border-color 0.35s;
+    transition: background 0.35s, border-color 0.35s;
     color: #626262;
     font-weight: 600;
     align-items: center;

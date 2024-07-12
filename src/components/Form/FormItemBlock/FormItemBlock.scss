@@ -38,8 +38,10 @@
         margin-right: 10px;
       }
     }
-    display: flex;
-    flex-wrap: wrap;
+    & {
+      display: flex;
+      flex-wrap: wrap;
+    }
     .error {
       color: #ff0000;
       font-weight: 500;
