@@ -1,0 +1,114 @@
+$respond-to-no-mediaqueries-fallback: phone;
+$respond-to-fallback-class: lt-ie9;
+$respond-to-breakpoints: (
+  large "screen and (max-width: 1090px)",
+  medium "screen and (max-width: 821px)",
+  small "screen and (max-width: 649px)",
+  half "screen and (max-width: 500px)"
+);
+@mixin respond-to($medias...) {
+  $breakpoints-length: length($respond-to-breakpoints);
+
+  @each $media in $medias {
+    $had-a-hit: false;
+
+    @for $i from 1 through $breakpoints-length {
+      $breakpoint: nth($respond-to-breakpoints, $i);
+      @if $media == nth($breakpoint, 1) {
+        $definition: nth($breakpoint, 2);
+        $had-a-hit: true;
+        @media #{$definition} {
+          @content;
+        }
+      }
+    }
+
+    @if $media == $respond-to-no-mediaqueries-fallback {
+      .#{$respond-to-fallback-class} & {
+        @content;
+      }
+    }
+
+    @if $had-a-hit == false {
+      @warn "Media #{media} not found!";
+    }
+  }
+}
+
+.main-mockup {
+  flex-grow: 1;
+  &__header {
+    position: relative;
+    margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: start;
+    min-height: 24px;
+    &--mb32 {
+      margin-bottom: 32px;
+    }
+    .m-header {
+      &__title {
+        display: flex;
+        align-items: baseline;
+        line-height: 1;
+        @include respond-to(large) {
+          width: 100%;
+        }
+        > h1 {
+          font-size: 24px;
+        }
+        > span {
+          margin-left: 20px;
+          color: #333;
+          font-size: 16px;
+          @include respond-to(small) {
+            width: 100%;
+            display: block;
+            margin-left: 0;
+          }
+        }
+      }
+
+      &__item {
+        margin-left: 20px;
+
+        @include respond-to(large) {
+          margin-left: 0;
+          margin-top: 10px;
+        }
+
+        .ele {
+          margin-right: 20px;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
+      &__right {
+        position: absolute;
+        top: -4px;
+        right: 0;
+        .btn.mr-10 {
+          margin-right: 10px;
+        }
+
+        @include respond-to(large) {
+          margin-top: 10px;
+          position: relative;
+          margin-left: 10px;
+        }
+
+        .ele {
+          margin-right: 20px;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+  &__body {
+  }
+}

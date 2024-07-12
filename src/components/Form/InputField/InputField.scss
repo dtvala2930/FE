@@ -1,0 +1,80 @@
+$respond-to-no-mediaqueries-fallback: phone;
+$respond-to-fallback-class: lt-ie9;
+$respond-to-breakpoints: (
+  large "screen and (max-width: 1090px)",
+  medium "screen and (max-width: 821px)",
+  small "screen and (max-width: 649px)",
+  half "screen and (max-width: 500px)"
+);
+@mixin respond-to($medias...) {
+  $breakpoints-length: length($respond-to-breakpoints);
+
+  @each $media in $medias {
+    $had-a-hit: false;
+
+    @for $i from 1 through $breakpoints-length {
+      $breakpoint: nth($respond-to-breakpoints, $i);
+      @if $media == nth($breakpoint, 1) {
+        $definition: nth($breakpoint, 2);
+        $had-a-hit: true;
+        @media #{$definition} {
+          @content;
+        }
+      }
+    }
+
+    @if $media == $respond-to-no-mediaqueries-fallback {
+      .#{$respond-to-fallback-class} & {
+        @content;
+      }
+    }
+
+    @if $had-a-hit == false {
+      @warn "Media #{media} not found!";
+    }
+  }
+}
+
+.form-item-control-group {
+  .form-item-control {
+    position: relative;
+    display: flex;
+    .btn {
+      position: absolute;
+      right: 0;
+      bottom: 10%;
+    }
+    input.in {
+      width: 100%;
+      max-width: 375px;
+      height: 32px;
+      padding: 3px 8px;
+      font-size: 13px;
+      border-radius: 5px;
+      background: #fff;
+      border: 1px solid #7b7b7b;
+      box-sizing: border-box;
+      @include respond-to(half) {
+        max-width: 100%;
+      }
+      &:disabled {
+        background-color: #d9d9d9;
+      }
+      &:focus {
+        outline: 1px solid #68937d;
+        background: #ffffe3;
+        border: 1px solid #68937d;
+      }
+      &::placeholder {
+        color: #b5b5b5;
+      }
+    }
+    > svg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 9px;
+      color: #626262;
+    }
+  }
+}

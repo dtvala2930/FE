@@ -1,0 +1,197 @@
+$respond-to-no-mediaqueries-fallback: phone;
+$respond-to-fallback-class: lt-ie9;
+$respond-to-breakpoints: (
+  large "screen and (max-width: 1090px)",
+  medium "screen and (max-width: 821px)",
+  small "screen and (max-width: 649px)",
+  half "screen and (max-width: 500px)"
+);
+@mixin respond-to($medias...) {
+  $breakpoints-length: length($respond-to-breakpoints);
+
+  @each $media in $medias {
+    $had-a-hit: false;
+
+    @for $i from 1 through $breakpoints-length {
+      $breakpoint: nth($respond-to-breakpoints, $i);
+      @if $media == nth($breakpoint, 1) {
+        $definition: nth($breakpoint, 2);
+        $had-a-hit: true;
+        @media #{$definition} {
+          @content;
+        }
+      }
+    }
+
+    @if $media == $respond-to-no-mediaqueries-fallback {
+      .#{$respond-to-fallback-class} & {
+        @content;
+      }
+    }
+
+    @if $had-a-hit == false {
+      @warn "Media #{media} not found!";
+    }
+  }
+}
+
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+  &__full-main {
+    .layout__sidebar {
+      width: 50px;
+      @include respond-to(medium) {
+        display: block;
+        width: 100%;
+      }
+      .slidebar-main {
+        padding-left: 0px;
+        padding-right: 0px;
+        @include respond-to(medium) {
+          position: fixed;
+          width: 100%;
+          padding: 0;
+          height: 100vh;
+          padding-top: 50px;
+          margin-top: 0;
+          top: 0;
+          z-index: 2;
+        }
+        .slidebar-main--inner {
+          @include respond-to(medium) {
+            height: 100%;
+            background-color: #fff;
+          }
+        }
+        .btn-sidebar {
+          @include respond-to(medium) {
+            display: none;
+          }
+        }
+        .slidebar-main__menu {
+          .nav {
+            > ul {
+              > li {
+                width: 40px;
+                height: 38px;
+                overflow: hidden;
+                @include respond-to(medium) {
+                  width: 100%;
+                  height: auto;
+                  border-bottom: 1px solid #68937e30;
+                  border-radius: 0;
+                  margin-left: 0;
+                  margin-bottom: 0;
+                }
+                > a {
+                  font-size: 0;
+                  justify-content: center;
+                  padding: 12px 10px;
+                  @include respond-to(medium) {
+                    font-size: 18px;
+                  }
+                  > svg {
+                    font-size: 14px;
+                    margin-right: 0;
+                    @include respond-to(medium) {
+                      display: none;
+                    }
+                  }
+                  .nav__sub-icon {
+                    display: block;
+                  }
+                  .nav__notification {
+                    display: none;
+                  }
+                }
+                &.sub__menu {
+                  > a {
+                    > svg {
+                      &:last-child {
+                        display: none;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        .nav-other {
+          @include respond-to(medium) {
+            position: relative;
+            bottom: auto;
+            padding: 0;
+          }
+          ul {
+            @include respond-to(medium) {
+              background-color: #f1f1f1;
+            }
+            li {
+              @include respond-to(medium) {
+                margin-bottom: 0;
+                border-bottom: 1px solid #e3e3e3;
+              }
+              a {
+                // TODO : Hotfix: update dashboard interface
+                // sidebar hidden -> link hidden
+                // font-size: 0;
+                // background-color: #ffffff;
+                // display: none;
+                // border-radius: 5px;
+                // @include respond-to(medium) {
+                //   font-size: 14px;
+                //   text-align: center;
+                //   background-color: transparent;
+                //   padding: 10px;
+                // }
+                // svg {
+                //   font-size: 11px;
+                //   margin-right: 0;
+                //   @include respond-to(medium) {
+                //     display: none;
+                //   }
+                // }
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    .layout__main {
+      width: calc(100% - 50px);
+      @include respond-to(medium) {
+        width: 100%;
+      }
+    }
+  }
+  &__sidebar {
+    box-shadow: 4px 0px 6px rgba(62, 62, 62, 0.1411764706);
+    width: 200px;
+    position: relative;
+    background: #fff;
+    z-index: 2;
+    @include respond-to(medium) {
+      display: none;
+    }
+  }
+
+  &__main {
+    padding-bottom: 20px;
+    width: calc(100% - 200px);
+    padding-top: 70px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    @include respond-to(medium) {
+      width: 100%;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+}

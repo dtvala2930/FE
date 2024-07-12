@@ -144,7 +144,7 @@ code,
 kbd,
 samp {
   font-family: monospace, serif;
-  _font-family: "courier new", monospace;
+  _font-family: 'courier new', monospace;
   font-size: 1em;
 }
 
@@ -220,28 +220,28 @@ input {
 }
 
 button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
   cursor: pointer;
   -webkit-appearance: button;
   overflow: visible;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
+input[type='checkbox'],
+input[type='radio'] {
   box-sizing: border-box;
   padding: 0;
 }
 
-input[type="search"] {
+input[type='search'] {
   -webkit-appearance: textfield;
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
 
-input[type="search"]::-webkit-search-decoration {
+input[type='search']::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
@@ -278,7 +278,7 @@ audio:not([controls]),
 }
 
 textarea,
-input[type="text"] {
+input[type='text'] {
   appearance: none;
   background-clip: padding-box;
 }

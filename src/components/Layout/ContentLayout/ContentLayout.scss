@@ -1,0 +1,134 @@
+$respond-to-no-mediaqueries-fallback: phone;
+$respond-to-fallback-class: lt-ie9;
+$respond-to-breakpoints: (
+  large "screen and (max-width: 1090px)",
+  medium "screen and (max-width: 821px)",
+  small "screen and (max-width: 649px)",
+  half "screen and (max-width: 500px)"
+);
+@mixin respond-to($medias...) {
+  $breakpoints-length: length($respond-to-breakpoints);
+
+  @each $media in $medias {
+    $had-a-hit: false;
+
+    @for $i from 1 through $breakpoints-length {
+      $breakpoint: nth($respond-to-breakpoints, $i);
+      @if $media == nth($breakpoint, 1) {
+        $definition: nth($breakpoint, 2);
+        $had-a-hit: true;
+        @media #{$definition} {
+          @content;
+        }
+      }
+    }
+
+    @if $media == $respond-to-no-mediaqueries-fallback {
+      .#{$respond-to-fallback-class} & {
+        @content;
+      }
+    }
+
+    @if $had-a-hit == false {
+      @warn "Media #{media} not found!";
+    }
+  }
+}
+
+.main {
+  &.ele-sticky {
+    .main__header {
+      position: sticky;
+      top: 50px;
+      z-index: 1;
+      background-color: #fff;
+    }
+  }
+  &__header {
+    position: relative;
+    padding-bottom: 10px;
+    padding-top: 24px;
+
+    &::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+
+    .m-header {
+      &__title {
+        float: left;
+        font-size: 24px;
+        margin-right: 20px;
+        @include respond-to(large) {
+          width: 100%;
+        }
+
+        > span {
+          margin-left: 20px;
+          font-size: 16px;
+          @include respond-to(small) {
+            width: 100%;
+            display: block;
+            margin-left: 0;
+          }
+        }
+      }
+
+      &__item {
+        display: flex;
+        justify-content: center;
+
+        @include respond-to(large) {
+          margin-left: 0;
+          margin-top: 10px;
+        }
+
+        .ele {
+          margin-right: 10px;
+
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .main__header-content {
+    margin-bottom: 24px;
+
+    > ul {
+      > li {
+        font-size: 15px;
+      }
+    }
+  }
+
+  .main__header-anchor-link {
+    background-color: #fff;
+    position: sticky;
+    top: 120px;
+    z-index: 1;
+
+    &::after {
+      display: none;
+    }
+
+    > a {
+      margin-right: 6px;
+      margin-bottom: 6px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__body {
+    .panel {
+      &:first-child {
+        margin-top: 24px;
+      }
+    }
+  }
+}

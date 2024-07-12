@@ -3,10 +3,11 @@ import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { queryClient } from 'src/libs/react-query';
 
 import { Button, Spinner } from '@/components/Elemements';
 import { Notifications } from '@/components/Notifications';
+import { AuthLoader } from '@/libs/auth';
+import { queryClient } from '@/libs/react-query';
 
 const ErrorFallback = () => {
   return (
@@ -41,15 +42,15 @@ export const AppProvider = ({ children }: AppProviderProps) => {
           <QueryClientProvider client={queryClient}>
             <Notifications />
             <Spinner />
-            {/* <AuthLoader
+            <AuthLoader
               renderLoading={() => (
                 <div>
                   <Spinner />
                 </div>
               )}
-            > */}
-            <Router>{children}</Router>
-            {/* </AuthLoader> */}
+            >
+              <Router>{children}</Router>
+            </AuthLoader>
           </QueryClientProvider>
         </HelmetProvider>
       </ErrorBoundary>

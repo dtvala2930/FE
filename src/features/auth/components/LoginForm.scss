@@ -1,0 +1,90 @@
+$respond-to-no-mediaqueries-fallback: phone;
+$respond-to-fallback-class: lt-ie9;
+$respond-to-breakpoints: (
+  large "screen and (max-width: 1090px)",
+  medium "screen and (max-width: 821px)",
+  small "screen and (max-width: 690px)",
+  half "screen and (max-width: 500px)"
+);
+@mixin respond-to($medias...) {
+  $breakpoints-length: length($respond-to-breakpoints);
+
+  @each $media in $medias {
+    $had-a-hit: false;
+
+    @for $i from 1 through $breakpoints-length {
+      $breakpoint: nth($respond-to-breakpoints, $i);
+      @if $media == nth($breakpoint, 1) {
+        $definition: nth($breakpoint, 2);
+        $had-a-hit: true;
+        @media #{$definition} {
+          @content;
+        }
+      }
+    }
+
+    @if $media == $respond-to-no-mediaqueries-fallback {
+      .#{$respond-to-fallback-class} & {
+        @content;
+      }
+    }
+
+    @if $had-a-hit == false {
+      @warn "Media #{media} not found!";
+    }
+  }
+}
+
+.auth {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 3px 3px 10px #00000029;
+  background-color: #f1f1f1;
+  @include respond-to(half) {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+  &__logo {
+    width: 50%;
+    padding: 50px;
+    > img {
+      width: 240px;
+      display: table;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @include respond-to(half) {
+      width: 100%;
+      display: flex;
+    }
+  }
+  &__body {
+    background-color: #fff;
+    width: 50%;
+    padding: 134px 50px;
+    .form {
+      .form__footer {
+        .btn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 20px;
+          margin-right: 0px;
+        }
+      }
+    }
+    @include respond-to(half) {
+      width: 100%;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

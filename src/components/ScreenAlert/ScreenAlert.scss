@@ -1,0 +1,81 @@
+$respond-to-no-mediaqueries-fallback: phone;
+$respond-to-fallback-class: lt-ie9;
+$respond-to-breakpoints: (
+  large "screen and (max-width: 1090px)",
+  medium "screen and (max-width: 821px)",
+  small "screen and (max-width: 690px)",
+  half "screen and (max-width: 500px)"
+);
+@mixin respond-to($medias...) {
+  $breakpoints-length: length($respond-to-breakpoints);
+
+  @each $media in $medias {
+    $had-a-hit: false;
+
+    @for $i from 1 through $breakpoints-length {
+      $breakpoint: nth($respond-to-breakpoints, $i);
+      @if $media == nth($breakpoint, 1) {
+        $definition: nth($breakpoint, 2);
+        $had-a-hit: true;
+        @media #{$definition} {
+          @content;
+        }
+      }
+    }
+
+    @if $media == $respond-to-no-mediaqueries-fallback {
+      .#{$respond-to-fallback-class} & {
+        @content;
+      }
+    }
+
+    @if $had-a-hit == false {
+      @warn "Media #{media} not found!";
+    }
+  }
+}
+
+.screen-alert {
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fbfbfb;
+  &__body {
+    border: 1px solid #ebebeb;
+    padding: 55px 120px;
+    background-color: #fff;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    @include respond-to(half) {
+      padding: 55px;
+    }
+  }
+
+  &--title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #7b7b7b;
+  }
+
+  &--code {
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: 600;
+  }
+
+  &--link {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #7b7b7b;
+    text-decoration: underline;
+    &:hover {
+      color: #68937d;
+    }
+  }
+}
