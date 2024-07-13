@@ -47,7 +47,7 @@ export const Header = ({ isHiddenSidebar, toggleSidebar }: HeadProps) => {
             icon={faUser}
             color="#fff"
           />
-          <div>{user.data?.email} 様</div>
+          <div>{user.data?.email} </div>
           <FontAwesomeIcon
             className="menu__label-icon-right"
             icon={openMenuAuth ? faChevronUp : faChevronDown}

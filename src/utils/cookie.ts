@@ -20,30 +20,6 @@ export const getCookie = (name: string): string | null => {
   return null;
 };
 
-export const setCookieForSessionExpires = (
-  cookieName: CookieName,
-  propertyName: PropertyName,
-  newValue: NewValue,
-): void => {
-  const cookieValue = document.cookie
-    .split('; ')
-    .find((row) => row.startsWith(cookieName + '='));
-
-  if (!cookieValue) {
-    console.error('Cookie not found');
-    return;
-  }
-
-  const jsonString = decodeURIComponent(cookieValue.split('=')[1]);
-  const cookieObject: { [key in PropertyName]: NewValue } =
-    JSON.parse(jsonString);
-
-  cookieObject[propertyName] = newValue;
-  const updatedJsonString = JSON.stringify(cookieObject);
-  document.cookie =
-    cookieName + '=' + encodeURIComponent(updatedJsonString) + '; path=/';
-};
-
 export const setCookie = (
   name: string,
   value: string,

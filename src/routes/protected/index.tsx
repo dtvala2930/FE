@@ -8,6 +8,10 @@ import { ROUTES } from '@/utils/constants';
 import { lazyImport } from '@/utils/lazyImport';
 
 const { DashBoard } = lazyImport(() => import('@/features/misc'), 'DashBoard');
+const { SearchList } = lazyImport(
+  () => import('@/features/search'),
+  'SearchList',
+);
 
 const App = () => {
   return (
@@ -27,6 +31,10 @@ export const protectedRoutes = [
       {
         path: ROUTES.DASHBOARD,
         element: <DashBoard />,
+      },
+      {
+        path: ROUTES.SEARCH.INDEX,
+        element: <SearchList />,
       },
     ],
   },

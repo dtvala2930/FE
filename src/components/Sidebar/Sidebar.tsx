@@ -1,28 +1,21 @@
 import {
   faUser,
-  faBullhorn,
-  faCircleQuestion,
-  faGear,
-  faLink,
   faChevronLeft,
   faChevronRight,
-  faCaretRight,
-  faCaretDown,
   faHome,
+  faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
-import { ReactElement, useContext, useEffect, useState } from 'react';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { ReactElement, useContext, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 import { Button } from '../Elemements';
 
+import { GlobalContext } from '@/context/GlobalContext';
 import { useUser } from '@/libs/auth';
 import { SIDEBAR } from '@/utils/constants';
-import cookie, {
-  setCookieForSessionExpires,
-  storagePrefix,
-} from '@/utils/cookie';
+import cookie from '@/utils/cookie';
 
 import './Sidebar.scss';
 
@@ -37,13 +30,13 @@ type NavMainProps = {
 };
 
 const NavMain = ({ toggleSidebar }: NavMainProps) => {
-  const navigate = useNavigate();
   const location = useLocation();
+  const { screen } = useContext(GlobalContext);
+
   const currentPathname = location.pathname;
 
   const onNavigate = (url: string) => {
-    toggleSidebar();
-    setCookieForSessionExpires(`${storagePrefix}token_url`, 'url', url);
+    screen !== 'large' && toggleSidebar();
   };
 
   useEffect(() => {
@@ -53,11 +46,6 @@ const NavMain = ({ toggleSidebar }: NavMainProps) => {
       const token = cookie.getToken();
       if (!token) {
         localStorage.setItem('clearSession', 'true');
-        setCookieForSessionExpires(
-          `${storagePrefix}token_url`,
-          'sessionExpires',
-          'true',
-        );
         window.location.href = '/logout';
       }
     }, remainingExpireTime);
@@ -74,24 +62,24 @@ const NavMain = ({ toggleSidebar }: NavMainProps) => {
             onClick={() => onNavigate(`${SIDEBAR.DASHBOARD.TO}`)}
           >
             <FontAwesomeIcon icon={faHome} />
-            {`${SIDEBAR.DASHBOARD.LABEL}`}
+            {SIDEBAR.DASHBOARD.LABEL}
           </Link>
         </li>
-        {/* {user.data?.roles.notifications.screen && (
+        {
           <li
             className={clsx(
-              currentPathname.includes(SIDEBAR.NOTIFICATIONS.TO) && 'active',
+              currentPathname.includes(SIDEBAR.SEARCH.TO) && 'active',
             )}
           >
             <Link
-              to={isHandleLeavePage ? `#` : `${SIDEBAR.NOTIFICATIONS.TO}`}
-              onClick={() => onNavigate(`${SIDEBAR.NOTIFICATIONS.TO}`)}
+              onClick={() => onNavigate(`${SIDEBAR.SEARCH.TO}`)}
+              to={SIDEBAR.SEARCH.TO}
             >
-              <FontAwesomeIcon icon={faBullhorn} />
-              {t(SIDEBAR.NOTIFICATIONS.LABEL)}
+              <FontAwesomeIcon icon={faSearch} />
+              {SIDEBAR.SEARCH.LABEL}
             </Link>
           </li>
-        )} */}
+        }
       </ul>
     </nav>
   );
