@@ -16,9 +16,8 @@ async function handleUserResponse(data: UserResponse) {
     data: { token, expires },
   } = data;
 
-  console.log(data);
-
   cookie.setToken(token, expires);
+
   return await getUser();
 }
 

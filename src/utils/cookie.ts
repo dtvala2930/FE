@@ -2,7 +2,7 @@ type CookieName = string;
 type PropertyName = 'url' | 'sessionExpires';
 type NewValue = string;
 
-export const storagePrefix = 'xypass_app_';
+export const storagePrefix = 'interview_';
 
 export const getCookie = (name: string): string | null => {
   const cname = name + '=';
@@ -50,7 +50,8 @@ export const setCookie = (
   expires: string,
 ): void => {
   const date = new Date(expires);
-  const expiresDateString = date.toUTCString();
+  const expiresDateString = date.getTime();
+
   document.cookie = `${name}=${value};expires=${expiresDateString};path=/`;
 };
 

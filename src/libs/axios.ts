@@ -14,6 +14,7 @@ export interface IApiResponse {
 
 function authRequestInterceptor(config: AxiosRequestConfig): any {
   const token = cookie.getToken();
+
   if (token) {
     (config.headers as AxiosHeaders).set('authorization', `Bearer ${token}`);
   }
