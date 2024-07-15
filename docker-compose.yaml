@@ -1,0 +1,14 @@
+services:
+  fe:
+    image: fe:dev
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file:
+      - .env
+    ports:
+      - 5173:5173
+
+    #WINDOW
+    # stdin_open: true
+    # tty: true
