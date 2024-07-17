@@ -1,0 +1,112 @@
+$respond-to-no-mediaqueries-fallback: phone;
+$respond-to-fallback-class: lt-ie9;
+$respond-to-breakpoints: (
+  large 'screen and (max-width: 1090px)',
+  medium 'screen and (max-width: 821px)',
+  small 'screen and (max-width: 649px)',
+  half 'screen and (max-width: 500px)'
+);
+@mixin respond-to($medias...) {
+  $breakpoints-length: length($respond-to-breakpoints);
+
+  @each $media in $medias {
+    $had-a-hit: false;
+
+    @for $i from 1 through $breakpoints-length {
+      $breakpoint: nth($respond-to-breakpoints, $i);
+      @if $media == nth($breakpoint, 1) {
+        $definition: nth($breakpoint, 2);
+        $had-a-hit: true;
+        @media #{$definition} {
+          @content;
+        }
+      }
+    }
+
+    @if $media == $respond-to-no-mediaqueries-fallback {
+      .#{$respond-to-fallback-class} & {
+        @content;
+      }
+    }
+
+    @if $had-a-hit == false {
+      @warn "Media #{media} not found!";
+    }
+  }
+}
+.modal__root {
+  position: fixed;
+  inset: 0px;
+  z-index: 9999999;
+  display: none;
+  &.open {
+    display: block;
+  }
+  .modal__background {
+    width: 100%;
+    height: 100%;
+    cursor: default;
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  .box-modal {
+    position: absolute;
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    border-radius: 4px;
+    padding: 30px;
+    width: 75%;
+    top: 50px;
+    transform: translateX(-50%);
+    left: 50%;
+
+    &--file-upload {
+      width: 40%;
+      top: 0px;
+    }
+
+    &__content {
+      position: relative;
+      .btn-close {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        &--TOP40 {
+          top: -40px;
+          right: -20px;
+        }
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 30px;
+          height: 30px;
+          border-radius: 15px;
+          color: #fff;
+          background-color: #b5b5b5;
+          border: none;
+          cursor: pointer;
+          &:hover {
+            opacity: 0.8;
+            transition: all 0.3s;
+          }
+        }
+      }
+      &-label {
+        color: #333;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      &-description {
+        color: #333;
+        font-size: 13px;
+        line-height: 1.4;
+        margin-top: 20px;
+      }
+      &-children {
+        margin-top: 20px;
+      }
+    }
+  }
+}

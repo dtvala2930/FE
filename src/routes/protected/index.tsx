@@ -12,6 +12,10 @@ const { SearchList } = lazyImport(
   () => import('@/features/search'),
   'SearchList',
 );
+const { SearchDetail } = lazyImport(
+  () => import('@/features/search'),
+  'SearchDetail',
+);
 
 const App = () => {
   return (
@@ -35,6 +39,10 @@ export const protectedRoutes = [
       {
         path: ROUTES.SEARCH.INDEX,
         element: <SearchList />,
+      },
+      {
+        path: `${ROUTES.SEARCH.INDEX}/:fileId`,
+        element: <SearchDetail />,
       },
     ],
   },
