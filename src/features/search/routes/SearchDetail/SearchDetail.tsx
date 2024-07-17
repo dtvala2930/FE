@@ -29,7 +29,15 @@ export const SearchDetail = () => {
         <FormLayout>
           {resultData?.map((item, index) => {
             return (
-              <div key={index} style={{ marginBottom: '20px' }}>
+              <div
+                key={index}
+                style={{
+                  marginBottom: '20px',
+                  border: '1px solid black',
+                  borderRadius: '10px',
+                  padding: '20px',
+                }}
+              >
                 <div className="form__box">
                   Total adwords: <span>{item?.adwordsCount}</span>
                 </div>
@@ -55,10 +63,10 @@ export const SearchDetail = () => {
               </div>
             );
           })}
+          <Link themeType="cancel" to={`/${ROUTES.SEARCH.INDEX}`}>
+            Back
+          </Link>
         </FormLayout>
-        <Link themeType="cancel" to={`/${ROUTES.SEARCH.INDEX}`}>
-          Back
-        </Link>
       </Panel>
     </ContentLayout>
   );
