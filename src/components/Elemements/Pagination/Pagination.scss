@@ -1,0 +1,90 @@
+$respond-to-no-mediaqueries-fallback: phone;
+$respond-to-fallback-class: lt-ie9;
+$respond-to-breakpoints: (
+  large "screen and (max-width: 1090px)",
+  medium "screen and (max-width: 821px)",
+  small "screen and (max-width: 649px)",
+  half "screen and (max-width: 500px)"
+);
+@mixin respond-to($medias...) {
+  $breakpoints-length: length($respond-to-breakpoints);
+
+  @each $media in $medias {
+    $had-a-hit: false;
+
+    @for $i from 1 through $breakpoints-length {
+      $breakpoint: nth($respond-to-breakpoints, $i);
+      @if $media == nth($breakpoint, 1) {
+        $definition: nth($breakpoint, 2);
+        $had-a-hit: true;
+        @media #{$definition} {
+          @content;
+        }
+      }
+    }
+
+    @if $media == $respond-to-no-mediaqueries-fallback {
+      .#{$respond-to-fallback-class} & {
+        @content;
+      }
+    }
+
+    @if $had-a-hit == false {
+      @warn "Media #{media} not found!";
+    }
+  }
+}
+
+.pagination {
+  &__content {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 15px;
+    @include respond-to(half) {
+      text-align: center;
+    }
+  }
+  &__btn-group {
+    display: table;
+    border: 1px solid #c6cdce;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    .pagination-btn {
+      border: none;
+      padding: 8px 12px;
+      background-color: #fff;
+      color: #7b7b7b;
+      border-radius: 0;
+      > svg {
+        margin-right: 0;
+      }
+      &--prev {
+      }
+      &--next {
+        border-left: 1px solid #c6cdce;
+      }
+
+      &--number {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        border-left: 1px solid #c6cdce;
+        font-weight: 600;
+      }
+      &.active {
+        background-color: #68937d;
+        color: #fff;
+        border-right: 0;
+      }
+      &.disable {
+        cursor: no-drop;
+        color: #ccc;
+      }
+      &.no-curser {
+        cursor: initial;
+      }
+    }
+  }
+}

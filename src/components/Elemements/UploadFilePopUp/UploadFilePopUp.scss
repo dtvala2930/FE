@@ -1,0 +1,100 @@
+$respond-to-no-mediaqueries-fallback: phone;
+$respond-to-fallback-class: lt-ie9;
+$respond-to-breakpoints: (
+  large 'screen and (max-width: 1090px)',
+  medium 'screen and (max-width: 821px)',
+  small 'screen and (max-width: 649px)',
+  half 'screen and (max-width: 500px)'
+);
+@mixin respond-to($medias...) {
+  $breakpoints-length: length($respond-to-breakpoints);
+
+  @each $media in $medias {
+    $had-a-hit: false;
+
+    @for $i from 1 through $breakpoints-length {
+      $breakpoint: nth($respond-to-breakpoints, $i);
+      @if $media == nth($breakpoint, 1) {
+        $definition: nth($breakpoint, 2);
+        $had-a-hit: true;
+        @media #{$definition} {
+          @content;
+        }
+      }
+    }
+
+    @if $media == $respond-to-no-mediaqueries-fallback {
+      .#{$respond-to-fallback-class} & {
+        @content;
+      }
+    }
+
+    @if $had-a-hit == false {
+      @warn "Media #{media} not found!";
+    }
+  }
+}
+
+.form__box {
+  .btn-group--upload-file {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    @include respond-to(small) {
+      flex-direction: row;
+    }
+    @include respond-to(half) {
+      flex-direction: column;
+      flex-wrap: wrap;
+    }
+    > .btn {
+      @include respond-to(half) {
+        text-align: center;
+      }
+      &:first-child {
+        margin-right: 35%;
+        @include respond-to(half) {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+      }
+      &:nth-child(2n) {
+        position: absolute;
+        transform: translate(0, 0);
+        left: 44%;
+      }
+    }
+  }
+
+  .modal__root {
+    .box-modal {
+      .box-modal__content {
+        .box-modal__content-children {
+          .form__box {
+            .uploaded-file-box {
+              margin: 20px 0px;
+              > h1 {
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 10px;
+              }
+            }
+            .upload-file-error {
+              display: flex;
+              align-items: center;
+              color: #ff0000;
+              font-weight: 500;
+              border-radius: 10px;
+              min-width: 300px;
+              height: 40px;
+              margin-top: -4px;
+              max-width: 50%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
