@@ -37,7 +37,14 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
       ),
     firstName: z.string().min(1, 'Firstname is required'),
     lastName: z.string().min(1, 'Lastname is required'),
-    password: z.string().min(1, 'Password is required'),
+    password: z
+      .string()
+      .min(8, 'Password must be at least 8 characters long')
+      .regex(
+        /[!@#$%^&*(),.?":{}|<>]/,
+        'Password must contain at least one special character',
+      )
+      .regex(/\d/, 'Password must contain at least one number'),
   });
 
   const register = useRegister();
