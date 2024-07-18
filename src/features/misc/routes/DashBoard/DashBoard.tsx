@@ -15,21 +15,22 @@ export const DashBoard = () => {
         My Tech Stack for this project
       </h2>
       <ul>
-        <li>• React.js + SCSS</li>
-        <li>• Nest.js</li>
+        <li>• React.js + React hook form + react-query-auth + Zod + SCSS</li>
+        <li>• Nest.js + Postgres + prisma</li>
         <li>• Web scrapping with pupperty + bright data</li>
         <li>
-          • FE host: Firebase{' '}
+          • FE host: Firebase
           <span style={{ fontWeight: 'bold' }}>
             (https://interview-3d75e.web.app)
           </span>
         </li>
         <li>
-          • BE host: Render{' '}
+          • BE host: Render
           <span style={{ fontWeight: 'bold' }}>
             (https://be-fd7o.onrender.com)
           </span>
         </li>
+        <li>• Docker compose for FE + BE</li>
       </ul>
       <h2 style={{ marginTop: '20px', fontWeight: 'bold' }}>
         What features in my project
@@ -44,14 +45,13 @@ export const DashBoard = () => {
         What missed in my project
       </h2>
       <ul>
+        <li>• Check file type</li>
         <li>• Search items</li>
-        <li>• Loading animation</li>
-        <li>• Test: I don't have much time for this.</li>
       </ul>
 
       <h2 style={{ marginTop: '20px', fontWeight: 'bold' }}>
         Because I am using free host for BE side so it takes a little bit longer
-        than 1 minute for the first request. I hope this does not annoy you.
+        than 1 minute for the first request. I hope this is not annoying.
       </h2>
     </>
   );

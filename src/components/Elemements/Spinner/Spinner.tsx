@@ -14,7 +14,7 @@ export const Spinner = ({ className = '' }: SpinnerProps) => {
   const { isLoading } = useLoading();
   return (
     <>
-      {/* {isLoading && (
+      {isLoading && (
         <div className="loading">
           <FontAwesomeIcon
             icon={faCircleNotch}
@@ -24,7 +24,7 @@ export const Spinner = ({ className = '' }: SpinnerProps) => {
           />
           <span className={clsx('loading__text', className)}>Loading</span>
         </div>
-      )} */}
+      )}
     </>
   );
 };

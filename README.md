@@ -27,6 +27,20 @@ yarn
 yarn dev
 ```
 
+## Testing
+
+### Step 1: Install playwright
+
+```
+yarn create playwright
+```
+
+### Step 2:
+
+```
+yarn test [FileName]
+```
+
 ## docker compose up
 
 ### Before run script

@@ -9,7 +9,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy:dev": "yarn build",
-    "deploy:dev": "firebase deploy"
+    "deploy:dev": "firebase deploy",
+    "test": "npx playwright test"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
@@ -37,6 +38,7 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.45.2",
     "@types/lodash": "^4.17.6",
     "@types/node": "^20.14.10",
     "@types/react": "^18.3.3",

@@ -1,7 +1,14 @@
 {
   "hosting": {
     "public": "dist",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "/.*",
+      "/node_modules/",
+      "**/playwright/**",
+      "**/playwright.config.ts",
+      "**/tests/**"
+    ],
     "rewrites": [
       {
         "source": "**",
