@@ -3,21 +3,23 @@ import * as z from 'zod';
 import { Button, Link } from '@/components/Elemements';
 import { Form, FormItemBlock, InputField } from '@/components/Form';
 import { useLoading } from '@/hooks/useLoading';
-import { useLogin } from '@/libs/auth';
+import { useLogin, useRegister } from '@/libs/auth';
 import { EMAIL_REGEX, ROUTES } from '@/utils/constants';
 
 import './AuthForm.scss';
 
-type LoginValues = {
+type RegisterValues = {
   email: string;
   password: string;
+  firstName: string;
+  lastName: string;
 };
 
-type LoginFormProps = {
+type RegisterFormProps = {
   onSuccess: () => void;
 };
 
-export const LoginForm = ({ onSuccess }: LoginFormProps) => {
+export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   const { setLoading } = useLoading();
 
   const schema = z.object({
@@ -33,10 +35,19 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
           message: 'Invalid email format',
         },
       ),
-    password: z.string().min(1, 'Password is required'),
+    firstName: z.string().min(1, 'Firstname is required'),
+    lastName: z.string().min(1, 'Lastname is required'),
+    password: z
+      .string()
+      .min(8, 'Password must be at least 8 characters long')
+      .regex(
+        /[!@#$%^&*(),.?":{}|<>]/,
+        'Password must contain at least one special character',
+      )
+      .regex(/\d/, 'Password must contain at least one number'),
   });
 
-  const login = useLogin();
+  const register = useRegister();
 
   return (
     <>
@@ -45,10 +56,10 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
           <img src="/images/avt.jpeg" alt="tempt" />
         </div>
         <div className="auth__body">
-          <Form<LoginValues, typeof schema>
+          <Form<RegisterValues, typeof schema>
             onSubmit={async (values) => {
               setLoading(true);
-              await login
+              await register
                 .mutateAsync(values)
                 .then(() => {
                   onSuccess();
@@ -84,6 +95,36 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                     </div>
                     <div className="form__row">
                       <FormItemBlock
+                        label="First name"
+                        className="ele d-flex"
+                        themeType="no-pl-main"
+                        htmlFor="firstName"
+                      >
+                        <InputField
+                          id="firstName"
+                          type="text"
+                          error={formState.errors['firstName']?.message}
+                          registration={register('firstName')}
+                        />
+                      </FormItemBlock>
+                    </div>
+                    <div className="form__row">
+                      <FormItemBlock
+                        label="Last name"
+                        className="ele d-flex"
+                        themeType="no-pl-main"
+                        htmlFor="lastName"
+                      >
+                        <InputField
+                          id="lastName"
+                          type="text"
+                          error={formState.errors['lastName']?.message}
+                          registration={register('lastName')}
+                        />
+                      </FormItemBlock>
+                    </div>
+                    <div className="form__row">
+                      <FormItemBlock
                         label="Password"
                         className="ele d-flex"
                         themeType="no-pl-main"
@@ -99,17 +140,14 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                     </div>
                   </div>
                   <div>
-                    <span style={{ marginRight: '10px' }}>
-                      If you don't have account yet. Please register by follow
-                      the link
-                    </span>
-                    <Link to={`/${ROUTES.AUTH.REGISTER}`} themeType="text-link">
-                      Register
+                    <span style={{ marginRight: '10px' }}>Back to log in</span>
+                    <Link to={`/${ROUTES.AUTH.LOGIN}`} themeType="text-link">
+                      Log in
                     </Link>
                   </div>
                   <div className="form__footer">
                     <Button type="submit" themeType="login">
-                      Log in
+                      Submit
                     </Button>
                   </div>
                 </>

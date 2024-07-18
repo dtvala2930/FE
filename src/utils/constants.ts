@@ -10,6 +10,7 @@ export const ROUTES = {
   AUTH: {
     LOGIN: 'login',
     LOGOUT: 'logout',
+    REGISTER: 'register',
   },
   SEARCH: {
     INDEX: 'search',

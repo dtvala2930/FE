@@ -3,11 +3,12 @@ import { configureAuth } from 'react-query-auth';
 import {
   loginWithEmailAndPassword,
   getUser,
-  registerWithEmailAndPassword,
   UserResponse,
   LoginCredentialsDTO,
   RegisterCredentialsDTO,
   AuthUser,
+  register,
+  RegisterResponse,
 } from '@/features/auth';
 import cookie from '@/utils/cookie';
 
@@ -19,6 +20,11 @@ async function handleUserResponse(data: UserResponse) {
   cookie.setToken(token, expires);
 
   return await getUser();
+}
+
+async function handleRegisterResponse(data: RegisterResponse) {
+  const { data: registerResponse } = data;
+  return await getUser('register', registerResponse);
 }
 
 let data: AuthUser | null = null;
@@ -42,8 +48,8 @@ async function loginFn(data: LoginCredentialsDTO) {
 }
 
 async function registerFn(data: RegisterCredentialsDTO) {
-  const response = await registerWithEmailAndPassword(data);
-  const user = await handleUserResponse(response);
+  const response = await register(data);
+  const user = await handleRegisterResponse({ data: response.data });
   return user;
 }
 

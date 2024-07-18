@@ -1,6 +1,6 @@
-import { useNotification } from '@/hooks/useNotifications';
-
 import { Notification } from './Notification';
+
+import { useNotification } from '@/hooks/useNotifications';
 
 export const Notifications = () => {
   const { notifications, dismissNotification } = useNotification();

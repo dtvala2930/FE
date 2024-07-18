@@ -12,6 +12,14 @@ export type UserResponse = {
   };
 };
 
+export type RegisterResponse = {
+  data: {
+    email: string;
+    firstName: string;
+    lastName: string;
+  };
+};
+
 export type UserRolesDataResponse = {
   screen: boolean;
   btnNav?: boolean;

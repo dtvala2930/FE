@@ -10,10 +10,19 @@ const { Login } = lazyImport(
   'Login',
 );
 
+const { Register } = lazyImport(
+  () => import('@/features/auth/routes/Register'),
+  'Register',
+);
+
 export const privateRoutes = [
   {
     path: `/${ROUTES.AUTH.LOGIN}`,
     element: <Login />,
+  },
+  {
+    path: `/${ROUTES.AUTH.REGISTER}`,
+    element: <Register />,
   },
   { path: '*', element: <Navigate to={`/${ROUTES.AUTH.LOGOUT}`} /> },
 ];

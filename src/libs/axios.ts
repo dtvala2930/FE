@@ -38,13 +38,11 @@ axios.interceptors.response.use(
   },
   (error) => {
     if (
-      error.response.data.statusCode === 401 &&
-      (error.response.data.message === 'login-unauthorized' ||
-        error.response.data.message === 'Unauthorized' ||
-        error.response.data.message === 'User not found.')
+      error.response.data.statusCode === 401 ||
+      error.response.data.statusCode === 400
     ) {
       cookie.clearToken();
-      const message = 'Logged in fail';
+      const message = error.response.data.message;
       useNotification.getState().addNotification({
         type: 'error',
         message,
