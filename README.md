@@ -68,11 +68,5 @@ firebase login
 #### Step 3:
 
 ```
-yarn build
-```
-
-#### Step 4:
-
-```
-firebase deploy
+yarn deploy:dev
 ```
