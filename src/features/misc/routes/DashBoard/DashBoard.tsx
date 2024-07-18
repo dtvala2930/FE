@@ -46,8 +46,13 @@ export const DashBoard = () => {
       <ul>
         <li>• Search items</li>
         <li>• Loading animation</li>
-        <li>• Test</li>
+        <li>• Test: I don't have much time for this.</li>
       </ul>
+
+      <h2 style={{ marginTop: '20px', fontWeight: 'bold' }}>
+        Because I am using free host for BE side so it takes a little bit longer
+        than 1 minute for the first request. I hope this does not annoy you.
+      </h2>
     </>
   );
 };
