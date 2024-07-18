@@ -47,6 +47,7 @@ export const DashBoard = () => {
       <ul>
         <li>• Check file type</li>
         <li>• Search items</li>
+        <li>• Testing: Do not have enough time to finish</li>
       </ul>
 
       <h2 style={{ marginTop: '20px', fontWeight: 'bold' }}>
