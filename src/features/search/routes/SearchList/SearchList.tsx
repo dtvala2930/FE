@@ -14,7 +14,6 @@ import {
 } from '@/components/Elemements';
 import { ContentLayout, FormLayout } from '@/components/Layout';
 import { Panel } from '@/components/Panel';
-import { ROUTES } from '@/utils/constants';
 
 export const SearchList = () => {
   const [isUploadFilePopUp, setIsUploadFilePopUp] = useState(false);
@@ -67,6 +66,9 @@ export const SearchList = () => {
                   </div>
                 );
               })}
+              {data?.data.length === 0 && (
+                <div>No data found. Please upload file to search</div>
+              )}
               {isUploadFilePopUp && (
                 <UploadFilePopUp
                   isOpen={isUploadFilePopUp}
