@@ -37,16 +37,20 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    if (
-      error.response.data.statusCode === 401 ||
-      error.response.data.statusCode === 400
-    ) {
-      cookie.clearToken();
+    console.error(error.response.data.statusCode);
+
+    if (error.response.data.statusCode === 400) {
       const message = error.response.data.message;
       useNotification.getState().addNotification({
         type: 'error',
         message,
       });
+    } else if (error.response.data.statusCode === 401) {
+      useNotification.getState().addNotification({
+        type: 'error',
+        message: error.response.data.message,
+      });
+      cookie.clearToken();
     } else if (
       error.response.data.statusCode === 406 &&
       error.response.data.message === 'access-denied'
