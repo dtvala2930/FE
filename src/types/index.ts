@@ -10,6 +10,18 @@ export type ResponseData<T> = {
   statusCode: number;
   success: string;
 };
+
+export type ResponseDataWithMetaData<T> = {
+  data: T[];
+  statusCode: number;
+  success: string;
+  metaData: {
+    limit: number;
+    page: number;
+    total: number;
+  };
+};
+
 export type ResponseDetailData<T> = {
   data: T;
   statusCode: number;
@@ -23,3 +35,8 @@ export type ErrorResponse = {
   };
 };
 export type ScreenDevice = 'large' | 'medium' | 'small' | 'half';
+
+export type PaginationParams = {
+  limit: number;
+  page: number;
+};

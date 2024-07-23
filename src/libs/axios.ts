@@ -3,7 +3,6 @@ import Axios, { AxiosHeaders, AxiosRequestConfig } from 'axios';
 import { API_PATH, API_URL } from '@/config';
 import { useLoading } from '@/hooks/useLoading';
 import { useNotification } from '@/hooks/useNotifications';
-import { useNavigateStore } from '@/stores/navigate';
 import cookie from '@/utils/cookie';
 
 export interface IApiResponse {
@@ -55,19 +54,17 @@ axios.interceptors.response.use(
       error.response.data.statusCode === 406 &&
       error.response.data.message === 'access-denied'
     ) {
-      const type = 'error';
-      const message = `Access denied`;
       useNotification.getState().addNotification({
-        type,
-        message,
+        type: 'error',
+        message: error.response.data.message,
       });
     }
 
-    if (
-      error.response.data.statusCode === 500 &&
-      window.location.pathname !== '/'
-    ) {
-      useNavigateStore.getState().setNavigateTo('/');
+    if (error.response.data.statusCode === 500) {
+      useNotification.getState().addNotification({
+        type: 'error',
+        message: error.response.data.message,
+      });
     }
 
     useLoading.setState({ isLoading: false });

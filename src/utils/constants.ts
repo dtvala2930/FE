@@ -31,7 +31,7 @@ export const SIDEBAR = {
   },
 };
 
-export const PAGE_SIZE = 100;
+export const PAGE_SIZE = 2;
 export const HTTP_STATUS_CODE = {
   CREATED: 201,
 };
