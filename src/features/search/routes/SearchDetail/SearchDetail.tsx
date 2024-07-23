@@ -2,26 +2,50 @@ import { last, split } from 'lodash';
 import { useEffect, useState } from 'react';
 
 import { useGetSearchDetail } from '../../api/getSearchDetail';
-import { ResultItem, SearchDetailItem } from '../../types';
+import { ResultItem } from '../../types';
 
-import { Link } from '@/components/Elemements';
+import { Link, Pagination } from '@/components/Elemements';
 import { ContentLayout, FormLayout } from '@/components/Layout';
 import { Panel } from '@/components/Panel';
-import { ROUTES } from '@/utils/constants';
+import { PAGE_SIZE, ROUTES } from '@/utils/constants';
 
 export const SearchDetail = () => {
   const [resultData, setResultData] = useState<ResultItem[]>();
+  const [pagination, setPagination] = useState({
+    limit: PAGE_SIZE,
+    page: 1,
+    total: 0,
+  });
 
   const fileId = last(split(window.location.href, '/')) || '';
 
-  const { data } = useGetSearchDetail({ queryParameters: { fileId } });
+  const { data } = useGetSearchDetail({
+    queryParameters: { fileId },
+    pagination: { limit: pagination.limit, page: pagination.page },
+  });
 
   useEffect(() => {
     if (data && data.data) {
-      const parseResult = JSON.parse(data.data.result);
-      setResultData(parseResult);
+      const results = data.data.map((item) => {
+        return JSON.parse(item.result);
+      });
+
+      setResultData(results);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (data?.metaData) {
+      setPagination((prevState) => ({
+        ...prevState,
+        ...data.metaData,
+      }));
+    }
+  }, [data?.metaData]);
+
+  const handlePageChange = (page: number) => {
+    setPagination({ ...pagination, page });
+  };
 
   return (
     <ContentLayout title="Search">
@@ -38,6 +62,9 @@ export const SearchDetail = () => {
                   padding: '20px',
                 }}
               >
+                <div className="form__box">
+                  Keyword: <span>{item?.searchKeyword}</span>
+                </div>
                 <div className="form__box">
                   Total adwords: <span>{item?.adwordsCount}</span>
                 </div>
@@ -63,6 +90,15 @@ export const SearchDetail = () => {
               </div>
             );
           })}
+          {data?.metaData &&
+            Math.ceil(data?.metaData?.total / data?.metaData?.limit) > 1 && (
+              <Pagination
+                page={pagination.page}
+                limit={pagination.limit}
+                total={pagination.total}
+                onChange={handlePageChange}
+              />
+            )}
           <Link themeType="cancel" to={`/${ROUTES.SEARCH.INDEX}`}>
             Back
           </Link>

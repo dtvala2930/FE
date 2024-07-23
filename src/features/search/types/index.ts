@@ -11,10 +11,11 @@ export interface SearchItem {
   fileId: string;
 }
 
-export interface SearchDetailItem {
+export interface SearchDetailResponse {
   fileId: string;
   result: string;
 }
+[];
 
 export interface ResultItem {
   pageHTML: string;

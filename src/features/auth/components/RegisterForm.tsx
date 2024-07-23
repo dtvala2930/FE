@@ -44,7 +44,8 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
         /[!@#$%^&*(),.?":{}|<>]/,
         'Password must contain at least one special character',
       )
-      .regex(/\d/, 'Password must contain at least one number'),
+      .regex(/\d/, 'Password must contain at least one number')
+      .regex(/[A-Z]/, 'Password must contain at least one uppercase letter'),
   });
 
   const register = useRegister();

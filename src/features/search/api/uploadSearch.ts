@@ -51,11 +51,7 @@ export const useUpdateFileUploaded = (
       setLoading(false);
       queryClient.invalidateQueries({ queryKey: ['get-search-list'] });
     },
-    onError: (error) => {
-      addNotification({
-        type: 'error',
-        message: error.message,
-      });
+    onError: () => {
       setLoading(false);
     },
 
