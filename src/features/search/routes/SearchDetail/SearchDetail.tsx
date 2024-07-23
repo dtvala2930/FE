@@ -63,6 +63,9 @@ export const SearchDetail = () => {
                 }}
               >
                 <div className="form__box">
+                  Keyword: <span>{item?.searchKeyword}</span>
+                </div>
+                <div className="form__box">
                   Total adwords: <span>{item?.adwordsCount}</span>
                 </div>
                 <div className="form__box">
